@@ -9,7 +9,12 @@
     },
     "babel": {
         "presets": [
-            "@babel/preset-env",
+            [
+                "@babel/preset-env",
+                {
+                    "useBuiltIns": "usage"
+                }
+            ],
             "@babel/preset-react"
         ],
         "plugins": [
@@ -28,6 +33,7 @@
     "devDependencies": {
         "@babel/core": "^7.5.5",
         "@babel/plugin-proposal-class-properties": "^7.5.5",
+        "@babel/polyfill": "^7.4.4",
         "@babel/preset-env": "^7.5.5",
         "@babel/preset-react": "^7.0.0",
         "babel-loader": "^8.0.6",
