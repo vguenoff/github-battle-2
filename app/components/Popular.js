@@ -31,8 +31,8 @@ export default class Popular extends Component {
                         },
                     }));
                 })
-                .catch(error => {
-                    console.warn(`Error fetching repos: ${error}`);
+                .catch(err => {
+                    console.warn(`Error fetching repos: ${err}`);
 
                     this.setState({
                         error: 'There was an error fetching the repositories',
@@ -52,12 +52,17 @@ export default class Popular extends Component {
 
         return (
             <>
-                <LanguagesNav selected={selectedLanguage} onUpdateLanguage={this.updateLanguage} />
+                <LanguagesNav
+                    selected={selectedLanguage}
+                    onUpdateLanguage={this.updateLanguage}
+                />
 
                 {this.isLoading() && <p>Loading...</p>}
                 {error && <p>{error}</p>}
                 {/* <pre>{JSON.stringify(repos[selectedLanguage], null, 2)</pre> */}
-                {repos[selectedLanguage] && <ReposGrid repos={repos[selectedLanguage]} />}
+                {repos[selectedLanguage] && (
+                    <ReposGrid repos={repos[selectedLanguage]} />
+                )}
             </>
         );
     }
