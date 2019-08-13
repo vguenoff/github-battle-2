@@ -29,7 +29,7 @@ export default class Battle extends Component {
 
         if (battle) {
             return (
-                <Results playeOne={playerOneName} playerTwo={playerTwoName} />
+                <Results playerOne={playerOneName} playerTwo={playerTwoName} />
             );
         }
 
@@ -81,7 +81,7 @@ export default class Battle extends Component {
                     {playerOneName && playerTwoName && (
                         <button
                             className="btn dark-btn btn-space"
-                            onClick={() => this.setState({ battle: true })}
+                            onClick={e => this.setState({ battle: true })}
                         >
                             Battle
                         </button>
