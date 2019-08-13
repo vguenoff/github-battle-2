@@ -3,16 +3,18 @@ import React, { Component } from 'react';
 import Instructions from './Instructions';
 import PlayerInput from './PlayerInput';
 import PlayerPreview from './PlayerPreview';
+import Results from './Results';
 
 export default class Battle extends Component {
     state = {
-        playerOne: null,
-        playerTwo: null,
+        playerOneName: null,
+        playerTwoName: null,
+        battle: false,
     };
 
-    handleSubmit = (id, player) => {
+    handleSubmit = (id, playerInput) => {
         this.setState({
-            [id]: player,
+            [id]: playerInput,
         });
     };
 
@@ -23,7 +25,13 @@ export default class Battle extends Component {
     };
 
     render() {
-        const { playerOne, playerTwo } = this.state;
+        const { playerOneName, playerTwoName, battle } = this.state;
+
+        if (battle) {
+            return (
+                <Results playeOne={playerOneName} playerTwo={playerTwoName} />
+            );
+        }
 
         return (
             <>
@@ -31,35 +39,53 @@ export default class Battle extends Component {
                 <div className="players-container">
                     <h1 className="center-text header-lg">Players</h1>
                     <div className="row space-around">
-                        {playerOne === null ? (
+                        {playerOneName === null ? (
                             <PlayerInput
                                 label="Player One"
-                                onSubmit={player =>
-                                    this.handleSubmit('playerOne', player)
+                                onSubmit={playerInput =>
+                                    this.handleSubmit(
+                                        'playerOneName',
+                                        playerInput,
+                                    )
                                 }
                             />
                         ) : (
                             <PlayerPreview
-                                username={playerOne}
+                                username={playerOneName}
                                 label="Player One"
-                                onReset={() => this.handleReset('playerOne')}
+                                onReset={() =>
+                                    this.handleReset('playerOneName')
+                                }
                             />
                         )}
-                        {playerTwo === null ? (
+                        {playerTwoName === null ? (
                             <PlayerInput
                                 label="Player Two"
-                                onSubmit={player =>
-                                    this.handleSubmit('playerTwo', player)
+                                onSubmit={playerInput =>
+                                    this.handleSubmit(
+                                        'playerTwoName',
+                                        playerInput,
+                                    )
                                 }
                             />
                         ) : (
                             <PlayerPreview
-                                username={playerTwo}
+                                username={playerTwoName}
                                 label="Player Two"
-                                onReset={() => this.handleReset('playerTwo')}
+                                onReset={() =>
+                                    this.handleReset('playerTwoName')
+                                }
                             />
                         )}
                     </div>
+                    {playerOneName && playerTwoName && (
+                        <button
+                            className="btn dark-btn btn-space"
+                            onClick={() => this.setState({ battle: true })}
+                        >
+                            Battle
+                        </button>
+                    )}
                 </div>
             </>
         );
