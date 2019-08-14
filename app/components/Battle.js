@@ -27,13 +27,19 @@ export default class Battle extends Component {
     render() {
         const { playerOneName, playerTwoName, battle } = this.state;
 
-        if (battle) {
-            return (
-                <Results playerOne={playerOneName} playerTwo={playerTwoName} />
-            );
-        }
-
-        return (
+        return battle ? (
+            <Results
+                playerOne={playerOneName}
+                playerTwo={playerTwoName}
+                onReset={() =>
+                    this.setState({
+                        playerOneName: null,
+                        playerTwoName: null,
+                        battle: false,
+                    })
+                }
+            />
+        ) : (
             <>
                 <Instructions />
                 <div className="players-container">
@@ -81,7 +87,7 @@ export default class Battle extends Component {
                     {playerOneName && playerTwoName && (
                         <button
                             className="btn dark-btn btn-space"
-                            onClick={e => this.setState({ battle: true })}
+                            onClick={() => this.setState({ battle: true })}
                         >
                             Battle
                         </button>
