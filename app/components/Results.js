@@ -4,11 +4,12 @@ import {
     FaBriefcase,
     FaUsers,
     FaUserFriends,
-    FaCode,
     FaUser,
 } from 'react-icons/fa';
 
 import { battle } from '../utils/api';
+
+import Card from './Card';
 
 export default class Results extends Component {
     state = {
@@ -43,7 +44,7 @@ export default class Results extends Component {
         const { winner, loser, error, loading } = this.state;
 
         if (loading) {
-            return <p>LOADING</p>;
+            return <p>LOADING...</p>;
         }
 
         if (error) {
@@ -52,28 +53,20 @@ export default class Results extends Component {
 
         return (
             <div className="grid space-around container-sm">
-                <div className="card bg-light">
-                    <h4 className="header-lg center-text">
-                        {winner.score === loser.score ? 'Tie' : 'Winner'}
-                    </h4>
-                    <img
-                        className="avatar"
-                        src={winner.profile.avatar_url}
-                        alt={`Avatar for ${winner.profile.login}`}
-                    />
-                    <h4 className="center-text">
-                        Score: {winner.score.toLocaleString()}
-                    </h4>
-                    <h2 className="center-text">
-                        <a className="link" href={winner.profile.html_url}>
-                            {winner.profile.login}
-                        </a>
-                    </h2>
+                <Card
+                    header={winner.score === loser.score ? 'Tie' : 'Winner'}
+                    subheader={`Score: ${winner.score.toLocaleString()}`}
+                    avatar={winner.profile.avatar_url}
+                    href={loser.profile.html_url}
+                    name={winner.profile.login}
+                >
                     <ul className="card-list">
-                        <li>
-                            <FaUser color="rgb(239, 115, 115)" size={22} />
-                            {winner.profile.name}
-                        </li>
+                        {winner.profile.name && (
+                            <li>
+                                <FaUser color="rgb(239, 115, 115)" size={22} />
+                                {winner.profile.name}
+                            </li>
+                        )}
                         {winner.profile.location && (
                             <li>
                                 <FaCompass
@@ -97,32 +90,25 @@ export default class Results extends Component {
                         <li>
                             <FaUserFriends color="rgb(64, 183, 95)" size={22} />
                             {winner.profile.following.toLocaleString()}{' '}
-                            followers
+                            following
                         </li>
                     </ul>
-                </div>
-                <div className="card bg-light">
-                    <h4 className="header-lg center-text">
-                        {winner.score === loser.score ? 'Tie' : 'Loser'}
-                    </h4>
-                    <img
-                        className="avatar"
-                        src={loser.profile.avatar_url}
-                        alt={`Avatar for ${loser.profile.login}`}
-                    />
-                    <h4 className="center-text">
-                        Score: {loser.score.toLocaleString()}
-                    </h4>
-                    <h2 className="center-text">
-                        <a className="link" href={loser.profile.html_url}>
-                            {loser.profile.login}
-                        </a>
-                    </h2>
+                </Card>
+
+                <Card
+                    header={winner.score === loser.score ? 'Tie' : 'Loser'}
+                    subheader={`Score: ${loser.score.toLocaleString()}`}
+                    avatar={loser.profile.avatar_url}
+                    href={loser.profile.html_url}
+                    name={loser.profile.login}
+                >
                     <ul className="card-list">
-                        <li>
-                            <FaUser color="rgb(239, 115, 115)" size={22} />
-                            {loser.profile.name}
-                        </li>
+                        {loser.profile.name && (
+                            <li>
+                                <FaUser color="rgb(239, 115, 115)" size={22} />
+                                {loser.profile.name}
+                            </li>
+                        )}
                         {loser.profile.location && (
                             <li>
                                 <FaCompass
@@ -144,10 +130,10 @@ export default class Results extends Component {
                         </li>
                         <li>
                             <FaUserFriends color="rgb(64, 183, 95)" size={22} />
-                            {loser.profile.following.toLocaleString()} followers
+                            {loser.profile.following.toLocaleString()} following
                         </li>
                     </ul>
-                </div>
+                </Card>
             </div>
         );
     }
