@@ -5,6 +5,7 @@ import { battle } from '../utils/api';
 
 import Card from './Card';
 import ProfileList from './ProfileList';
+import Loading from './Loading';
 
 export default class Results extends Component {
     static propTypes = {
@@ -44,7 +45,7 @@ export default class Results extends Component {
         const { winner, loser, error, loading } = this.state;
 
         if (loading) {
-            return <p>LOADING...</p>;
+            return <Loading />;
         }
 
         if (error) {

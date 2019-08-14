@@ -3,6 +3,7 @@ import { fetchPopularRepos } from '../utils/api';
 
 import LanguagesNav from './LanguagesNav';
 import ReposGrid from './ReposGrid';
+import Loading from './Loading';
 
 export default class Popular extends Component {
     state = {
@@ -57,7 +58,7 @@ export default class Popular extends Component {
                     onUpdateLanguage={this.updateLanguage}
                 />
 
-                {this.isLoading() && <p>Loading...</p>}
+                {this.isLoading() && <Loading text="Fetching repos" />}
                 {error && <p className="center-text error">{error}</p>}
                 {/* <pre>{JSON.stringify(repos[selectedLanguage], null, 2)</pre> */}
                 {repos[selectedLanguage] && (
