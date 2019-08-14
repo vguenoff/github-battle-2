@@ -58,7 +58,7 @@ export default class Popular extends Component {
                 />
 
                 {this.isLoading() && <p>Loading...</p>}
-                {error && <p>{error}</p>}
+                {error && <p className="center-text error">{error}</p>}
                 {/* <pre>{JSON.stringify(repos[selectedLanguage], null, 2)</pre> */}
                 {repos[selectedLanguage] && (
                     <ReposGrid repos={repos[selectedLanguage]} />

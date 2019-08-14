@@ -46,7 +46,7 @@ export async function getRepos(username) {
 
 function getStarCount(repos) {
     return repos.reduce(
-        (count, { stargazer_counts }) => count + stargazer_counts,
+        (count, { stargazers_count }) => count + stargazers_count,
         0,
     );
 }
