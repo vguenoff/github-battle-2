@@ -28,8 +28,6 @@ export default class Loading extends Component {
         content: this.props.text,
     };
 
-    static getDe;
-
     componentDidMount() {
         const { text, speed } = this.props;
 
