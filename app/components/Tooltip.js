@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, bool } from 'prop-types';
 
-import withHover from '../HOC/withHover';
+import Hover from '../renderProps/Hover';
 
 const styles = {
     container: {
@@ -25,16 +25,19 @@ const styles = {
     },
 };
 
-const Tooltip = ({ text, children, hover }) => (
-    <div style={styles.container}>
-        {hover && <div style={styles.tooltip}>{text}</div>}
-        {children}
-    </div>
+const Tooltip = ({ text, children }) => (
+    <Hover>
+        {hover => (
+            <div style={styles.container}>
+                {hover && <div style={styles.tooltip}>{text}</div>}
+                {children}
+            </div>
+        )}
+    </Hover>
 );
 
 Tooltip.propTypes = {
     text: string.isRequired,
-    hover: bool.isRequired,
 };
 
-export default withHover(Tooltip, 'hover');
+export default Tooltip;
