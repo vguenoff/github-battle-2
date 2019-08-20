@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import Instructions from './Instructions';
 import PlayerInput from './PlayerInput';
 import PlayerPreview from './PlayerPreview';
-import Results from './Results';
 
 export default class Battle extends Component {
     state = {
         playerOneName: null,
         playerTwoName: null,
-        battle: false,
     };
 
     handleSubmit = (id, playerInput) => {
@@ -25,21 +24,9 @@ export default class Battle extends Component {
     };
 
     render() {
-        const { playerOneName, playerTwoName, battle } = this.state;
+        const { playerOneName, playerTwoName } = this.state;
 
-        return battle ? (
-            <Results
-                playerOne={playerOneName}
-                playerTwo={playerTwoName}
-                onReset={() =>
-                    this.setState({
-                        playerOneName: null,
-                        playerTwoName: null,
-                        battle: false,
-                    })
-                }
-            />
-        ) : (
+        return (
             <>
                 <Instructions />
                 <div className="players-container">
@@ -85,12 +72,16 @@ export default class Battle extends Component {
                         )}
                     </div>
                     {playerOneName && playerTwoName && (
-                        <button
+                        <Link
                             className="btn dark-btn btn-space"
                             onClick={() => this.setState({ battle: true })}
+                            to={{
+                                pathname: '/battle/results',
+                                search: `?playerOne=${playerOneName}&playerTwo=${playerTwoName}`,
+                            }}
                         >
                             Battle
-                        </button>
+                        </Link>
                     )}
                 </div>
             </>

@@ -28,17 +28,17 @@ const Nav = () => (
                             activeStyle={activeStyle}
                             className="nav-link"
                         >
-                            Popular
+                            Battle
                         </NavLink>
                     </li>
-                    <button
-                        style={{ fontSize: 30 }}
-                        className="btn-clear"
-                        onClick={toggleTheme}
-                    >
-                        {theme === 'light' ? '🔦' : '💡'}
-                    </button>
                 </ul>
+                <button
+                    style={{ fontSize: 30 }}
+                    className="btn-clear"
+                    onClick={toggleTheme}
+                >
+                    {theme === 'light' ? '🔦' : '💡'}
+                </button>
             </nav>
         )}
     </ThemeConsumer>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { string, func } from 'prop-types';
+import queryString from 'query-string';
+import { Link } from 'react-router-dom';
 
 import { battle } from '../utils/api';
 
@@ -8,12 +9,6 @@ import ProfileList from './ProfileList';
 import Loading from './Loading';
 
 export default class Results extends Component {
-    static propTypes = {
-        playerOne: string.isRequired,
-        playerTwo: string.isRequired,
-        onReset: func.isRequired,
-    };
-
     state = {
         winner: null,
         loser: null,
@@ -22,7 +17,10 @@ export default class Results extends Component {
     };
 
     componentDidMount() {
-        const { playerOne, playerTwo } = this.props;
+        // debugger;
+        const { playerOne, playerTwo } = queryString.parse(
+            this.props.location.search,
+        );
 
         battle([playerOne, playerTwo])
             .then(players => {
@@ -74,12 +72,9 @@ export default class Results extends Component {
                         <ProfileList profile={loser.profile} />
                     </Card>
                 </div>
-                <button
-                    className="btn dark-btn btn-space"
-                    onClick={this.props.onReset}
-                >
+                <Link to="/battle" className="btn dark-btn btn-space">
                     Reset
-                </button>
+                </Link>
             </>
         );
     }
